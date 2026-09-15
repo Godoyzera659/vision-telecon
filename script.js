@@ -45,6 +45,7 @@ const filterButtons = document.querySelectorAll('.filter-button');
 const serviceCards = document.querySelectorAll('.service-card[data-service]');
 const projectItems = document.querySelectorAll('.gallery-item[data-category]');
 const projectSummary = document.getElementById('project-summary');
+const projectEmpty = document.getElementById('project-empty');
 const projectsSection = document.getElementById('projetos');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const categoryNames = {
@@ -52,7 +53,8 @@ const categoryNames = {
   cabeamento: 'cabeamento estruturado',
   fibra: 'fibra óptica',
   certificacao: 'certificação de pontos',
-  eletrica: 'elétrica básica'
+  eletrica: 'elétrica básica',
+  cftv: 'CFTV'
 };
 
 function filterProjects(category, scrollToProjects = false) {
@@ -77,7 +79,10 @@ function filterProjects(category, scrollToProjects = false) {
     card.setAttribute('aria-pressed', String(active));
   });
 
-  projectSummary.textContent = `${visibleCount} ${visibleCount === 1 ? 'trabalho realizado' : 'trabalhos realizados'} em ${categoryNames[category]}.`;
+  projectEmpty.hidden = visibleCount > 0;
+  projectSummary.textContent = visibleCount === 0
+    ? `Conheça nossas soluções em ${categoryNames[category]}.`
+    : `${visibleCount} ${visibleCount === 1 ? 'trabalho realizado' : 'trabalhos realizados'} em ${categoryNames[category]}.`;
 
   if (scrollToProjects) {
     projectsSection.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
