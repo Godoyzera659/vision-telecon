@@ -1,1 +1,4 @@
 img/originais/
+.npm-cache/
+.tmp-npm/
+.npm_home/
